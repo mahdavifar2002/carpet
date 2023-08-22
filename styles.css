@@ -1,0 +1,67 @@
+body {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+* {
+	font-family: Sahel !important;
+}
+model-viewer{
+	width: 70vw;
+	height:70vh;
+}
+/* This keeps child nodes hidden while the element loads */
+:not(:defined) > * {
+	display: none;
+}
+model-viewer {
+	background-color: #eee;
+	overflow-x: hidden;
+}
+#ar-button {
+	background-image: url(https://modelviewer.dev/assets/ic_view_in_ar_new_googblue_48dp.png);
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	background-position: 24px 50%;
+	background-color: #fff;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: nowrap;
+	bottom: 10%;
+	padding: 0px 32px 0px 80px;
+	font-family: Roboto Regular, Helvetica Neue, sans-serif;
+	font-size: 28px;
+	color:#4285f4;
+	height: 72px;
+	line-height: 72px;
+	border-radius: 36px;
+	border: 1px solid #DADCE0;
+}
+#ar-button:active {
+	background-color: #E8EAED;
+}
+#ar-button:focus {
+	outline: none;
+}
+#ar-button:focus-visible {
+	outline: 1px solid #4285f4;
+}
+.controls {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	top: 5%;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: Roboto Regular, Helvetica Neue, sans-serif;
+	font-size: 28px;
+	color:#4285f4;
+}
+select {
+	font-family: Roboto Regular, Helvetica Neue, sans-serif;
+	font-size: 28px;
+	color:#4285f4;
+}

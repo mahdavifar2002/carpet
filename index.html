@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+  <head>
+    <title>&lt;model-viewer&gt; template</title>
+    <meta charset="utf-8">
+    <meta name="description" content="&lt;model-viewer&gt; template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="styles.css" rel="stylesheet"/>
+	<link type="text/css" rel="stylesheet" href="https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha22/dist/font-face.css">
+  </head>
+  <body>
+  
+  <!-- <model-viewer> HTML element -->
+  <script type="module" src="./model-viewer.js"></script>
+
+  <model-viewer id="carpet" camera-controls touch-action="pan-y" src="carpet.glb" ar alt="A 3D model of a carpet">
+	
+	<button slot="ar-button" id="ar-button">
+		در خانه‌ی خود ببینید
+	</button>
+
+	<div class="controls">
+	  <div style="margin: 10px;">
+		ابعاد:
+		<select id="size">
+		  <option value="./models/carpet-6m.glb">۶ متری</option>
+		  <option value="./models/carpet-9m.glb">۹ متری</option>
+		  <option value="./models/carpet-12m.glb">۱۲ متری</option>
+		</select>
+	  </div>
+
+	  <div>
+		رنگ:
+		<select id="diffuse">
+		  <!-- <option value="images/1.jpg">نارنجی</option>
+		  <option value="images/2.jpg">سرمه‌ای</option>
+		  <option value="images/3.jpg">کرم</option> -->
+		</select>
+	  </div>
+    </div>
+	</div>
+  </model-viewer>
+
+  <!-- script to add color options -->
+  <script type=""module">
+    function displayOptions() {
+      const object = {'images/1.jpg': 'نارنجی', 'images/2.jpg': 'سرمه‌ای', 'images/3.jpg' : 'کرم'};
+      var sel = document.querySelector('#diffuse');
+
+      for (const [key, value] of Object.entries(object)) {
+        let opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent += value;
+        sel.appendChild(opt);
+      }
+    }
+
+    displayOptions();
+  </script>
+
+  <!-- script to load colors variants -->
+  <script type="module">
+  const modelViewerTexture1 = document.querySelector("model-viewer#carpet");
+  
+  modelViewerTexture1.addEventListener("load", () => {  
+    const material = modelViewerTexture1.model.materials[0];
+    
+    const createAndApplyTexture = async (channel, event) => {
+      console.log(event.target.value);
+      const texture = await modelViewerTexture1.createTexture(event.target.value);
+      if (channel.includes('base') || channel.includes('metallic')) {
+      material.pbrMetallicRoughness[channel].setTexture(texture);
+      } else {
+      material[channel].setTexture(texture);
+      }
+    }
+    
+    document.querySelector('#diffuse').addEventListener('input', (event) => {
+      createAndApplyTexture('baseColorTexture', event);
+    });
+
+    document.querySelector('#diffuse').dispatchEvent(new Event('input'));
+  });
+  
+  </script>
+
+  <!-- script to load sizes -->
+  <script type="module">
+    const modelViewer = document.querySelector("model-viewer");
+
+    const switchSrc = (event) => {
+      modelViewer.src = event.target.value;
+    }
+
+    document.querySelector('#size').addEventListener('input', (event) => {
+      switchSrc(event);
+    });
+  </script>
+
+  </body>
+</html>

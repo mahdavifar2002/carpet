@@ -1,29 +1,34 @@
-.ar-container {
+.vr-container {
 	width: 350px;
 	height: 250px;
 	margin: auto;
-	border:1px solid silver;
+	border: 1px solid silver;
 }
+
 @media screen and (max-width: 500px) {
-	.ar-container {
+	.vr-container {
 		width: 70%;
 	}
 }
+
 model-viewer {
 	width: 100%;
 	height: 99%;
 	position: relative;
 }
+
 /* This keeps child nodes hidden while the element loads */
-:not(:defined) > * {
+:not(:defined)>* {
 	display: none;
 }
+
 model-viewer {
 	background-color: #fff;
 	overflow-x: hidden;
 }
+
 #ar-button {
-	background-image: url(https://modelviewer.dev/assets/ic_view_in_ar_new_googblue_48dp.png);
+	background-image: url(https://raw.githubusercontent.com/mahdavifar2002/carpet/main/images/view_in_ar_shamdouni.png);
 	background-repeat: no-repeat;
 	background-size: 20px 20px;
 	background-position: 12px 50%;
@@ -36,43 +41,52 @@ model-viewer {
 	padding: 0px 16px 0px 40px;
 	font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif;
 	font-size: 14px;
-	color:#4285f4;
+	color: #358597;
 	height: 36px;
 	line-height: 36px;
 	border-radius: 18px;
 	border: 1px solid #DADCE0;
 }
+
 #ar-button:active {
 	background-color: #E8EAED;
 }
+
 #ar-button:focus {
 	outline: none;
 }
+
 #ar-button:focus-visible {
-	outline: 1px solid #4285f4;
+	outline: 1px solid #358597;
 }
+
 .controls {
 	position: absolute;
-        display:none;
-        flex-direction: column;
+	flex-direction: column;
 	align-items: left;
 	top: 5%;
 	left: 50%;
 	transform: translateX(-50%);
 	font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif;
 	font-size: 14px;
-	color:#4285f4;
+	color: #358597;
 }
-model-viewer[ar-status="session-started"] > .controls {
-	display: flex;
+
+.only-ar {
+	/* display: none; */
 }
-model-viewer[ar-status="object-placed"] > .controls {
-        display: flex;
+
+model-viewer[ar-status="session-started"]>.only-ar {
+	display: block;
 }
+
+model-viewer[ar-status="object-placed"]>.only-ar {
+	display: block;
+}
+
 .ar-select {
 	font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif;
 	font-size: 14px;
-	color:#4285f4;
+	color: #358597;
 	background-color: white;
 }
-

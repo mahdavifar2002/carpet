@@ -1,3 +1,7 @@
+* {
+	font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif;
+}
+
 .ar-container {
 	width: 350px;
 	height: 250px;
@@ -60,17 +64,7 @@ model-viewer {
 	outline: 1px solid #358597;
 }
 
-.controls {
-	position: absolute;
-	flex-direction: column;
-	align-items: left;
-	top: 5%;
-	left: 50%;
-	transform: translateX(-50%);
-	font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif;
-	font-size: 14px;
-	color: #358597;
-}
+/* font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif; */
 
 .only-ar {
 	display: none;
@@ -82,11 +76,4 @@ model-viewer[ar-status="session-started"]>.only-ar {
 
 model-viewer[ar-status="object-placed"]>.only-ar {
 	display: block;
-}
-
-.ar-select {
-	font-family: "sans", Roboto Regular, Helvetica Neue, sans-serif;
-	font-size: 14px;
-	color: #358597;
-	background-color: white;
 }

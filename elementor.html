@@ -1,295 +1,278 @@
 <div style="padding-top: 25px; border-top: 1px solid silver;">
-    <style>
+
+  <style>
+    #ar-button,
+    * {
+      font-family: sans, Roboto Regular, Helvetica Neue, sans-serif
+    }
+
+    .ar-container {
+      width: 350px;
+      height: 250px;
+      margin: auto;
+      border: 1px solid silver
+    }
+
+    @media screen and (max-width:500px) {
       .ar-container {
-        width: 350px;
-        height: 250px;
-        margin: auto;
-        border: 1px solid silver
+        width: 70%
       }
-  
-      @media screen and (max-width:500px) {
-        .ar-container {
-          width: 70%
-        }
-      }
-  
-      model-viewer {
-        width: 100%;
-        height: 99%;
-        position: relative;
-        background-color: #fff;
-        overflow-x: hidden
-      }
-  
-      .only-ar,
-      :not(:defined)>* {
-        display: none
-      }
-  
-      #ar-button {
-        background-image: url(https://raw.githubusercontent.com/mahdavifar2002/carpet/main/images/view_in_ar_shamdouni.png);
-        background-repeat: no-repeat;
-        background-size: 20px 20px;
-        background-position: 12px 50%;
-        background-color: #fff;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        bottom: 5%;
-        padding: 0 16px 0 40px;
-        font-family: sans, Roboto Regular, Helvetica Neue, sans-serif;
-        font-size: 14px;
-        color: #358597;
-        height: 36px;
-        line-height: 36px;
-        border-radius: 18px;
-        border: 1px solid #dadce0
-      }
-  
-      #ar-button:active {
-        background-color: #e8eaed
-      }
-  
-      #ar-button:focus {
-        outline: 0
-      }
-  
-      #ar-button:focus-visible {
-        outline: #358597 solid 1px
-      }
-  
-      model-viewer[ar-status=object-placed]>.only-ar,
-      model-viewer[ar-status=session-started]>.only-ar {
-        display: block
-      }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  
-    <h4>تکنولوژی واقعیت افزوده (پرو مجازی فرش)</h4>
-  
-    <div class="ar-container">
-      <script type="module">
-        import { ModelViewerElement } from 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
-      </script>
-  
-      <model-viewer id="carpet" camera-controls touch-action="pan-y"
-        src="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet.glb" ar ar-scale="fixed"
-        ar-modes="webxr scene-viewer quick-look" camera-orbit="-22.5deg 60deg 70%" camera-target="0m -0.5m 0m"
-        alt="A 3D model of a carpet">
-  
-        <button slot="ar-button" id="ar-button">
-          در خانه‌ی خود ببینید
-        </button>
-  
-        <div class="only-ar">
-  
-          <div class="pos-f-t">
-            <div class="collapse show" id="navbarToggleExternalContent">
-              <div class="p-4" style="background-color: #6c757d88;">
-  
-                  <div dir="ltr">
-                    <button class="btn btn-dark" onclick="document.getElementById('ar-exit').click()">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-x-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
-                        <path
-                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708">
-                        </path>
-                      </svg>
-                      خروج
-                    </button>
-                  </div>
-  
-                  <h2 class="text-light" id="ar-title" style="display: none;">پرو مجازی فرش</h2>
-  
-                  <div style="display: none;">
-                    <label class="form-label text-light">ابعاد:</label>
-                    <select class="form-select" id="size">
-                      <option value="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet-6m.glb">
-                        ۶ متری
-                      </option>
-                      <option value="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet-9m.glb">
-                        ۹ متری
-                      </option>
-                      <option value="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet-12m.glb">
-                        ۱۲ متری
-                      </option>
-                    </select>
-                  </div>
-  
-                  <div style="display: none;">
-                    <label class="form-label text-light">رنگ:</label>
-                    <select class="form-select" id="diffuse">
-                    </select>
-                  </div>
-  
-                  <div>
-                    <label class="form-label text-light">ابعاد: <b id="size-report"></b></label>
-                    <div id="sizes"></div>
-                  </div>
-  
-                  <div>
-                    <label class="form-label text-light">رنگ: <b id="color-report"></b></label>
-                    <div id="colors"></div>
-                  </div>
-  
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 99%;
+      position: relative;
+      background-color: #fff;
+      overflow-x: hidden
+    }
+
+    .only-ar,
+    :not(:defined)>* {
+      display: none
+    }
+
+    #ar-button {
+      background-image: url(https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/img/view_in_ar_shamdouni.png);
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      background-position: 12px 50%;
+      background-color: #fff;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      bottom: 5%;
+      padding: 0 16px 0 40px;
+      font-size: 14px;
+      color: #358597;
+      height: 36px;
+      line-height: 36px;
+      border-radius: 18px;
+      border: 1px solid #dadce0
+    }
+
+    #ar-button:active {
+      background-color: #e8eaed
+    }
+
+    #ar-button:focus {
+      outline: 0
+    }
+
+    #ar-button:focus-visible {
+      outline: #358597 solid 1px
+    }
+
+    model-viewer[ar-status=object-placed]>.only-ar,
+    model-viewer[ar-status=session-started]>.only-ar {
+      display: block
+    }
+  </style>
+  <link href="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/css/bootstrap.min.css"
+    rel="stylesheet" type="text/css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <h4>تکنولوژی واقعیت افزوده (پرو مجازی فرش)</h4>
+
+  <div class="ar-container">
+    <script type="module">
+      import { ModelViewerElement } from 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+    </script>
+
+    <model-viewer id="carpet" camera-controls touch-action="pan-y"
+      src="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet.glb" ar ar-scale="fixed"
+      ar-modes="webxr scene-viewer quick-look" camera-orbit="-22.5deg 60deg 70%" camera-target="0m -0.5m 0m"
+      alt="A 3D model of a carpet">
+
+      <button slot="ar-button" id="ar-button">
+        در خانه‌ی خود ببینید
+      </button>
+
+      <div class="only-ar">
+
+        <div class="pos-f-t">
+          <div class="collapse show" id="navbarToggleExternalContent">
+            <div class="p-4" style="background-color: #6c757d88;">
+
+              <div dir="ltr">
+                <button class="btn btn-close" onclick="document.getElementById('ar-exit').click()"></button>
               </div>
-            </div>
-  
-            <div class="bg-dark" style="border: 3px solid black;">
+
+              <h2 class="text-light" id="ar-title" style="display: none;">پرو مجازی فرش</h2>
+
+              <div>
+                <label class="text-light">ابعاد: <b id="size-report"></b></label>
+                <div id="sizes"></div>
+              </div>
+
+              <div>
+                <label class="text-light">رنگ: <b id="color-report"></b></label>
+                <div id="colors"></div>
+              </div>
+
+              <div style="display: none;">
+                <label class="form-label text-light">رنگ:</label>
+                <select class="form-select" id="diffuse">
+                </select>
+              </div>
+
             </div>
           </div>
-          <div dir="ltr" class="container">
-            <div id="half-circle"
-              style="background-color: #6c757d88; width: 60px; height: 30px; border-bottom-left-radius: 34px; border-bottom-right-radius: 34px; border: 4px solid black; border-top: 0; position: absolute; margin-left: 50px;"
-              class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
-              aria-controls="navbarToggleExternalContent" aria-expanded="true" aria-label="Toggle navigation">
-              <i id="arrow" style="font-size: 30px; margin-top: -10px; margin-left: 12px; position: absolute;"
-                class="bi bi-arrow-up-short"></i>
-            </div>
-  
+
+          <div class="bg-dark" style="border: 3px solid black;">
           </div>
         </div>
-  
-        <button id="ar-exit" slot="exit-webxr-ar-button" style="display: none;"><i class="bi bi-x-lg"></i></button>
-  
-      </model-viewer>
-  
-      <!-- script to toggle the collapsible -->
-      <script>
-        var myCollapsible = document.getElementById('navbarToggleExternalContent');
-  
-        myCollapsible.addEventListener('hide.bs.collapse', function () {
-          var arrow = document.getElementById('arrow');
-          arrow.classList.remove('bi-arrow-up-short');
-          arrow.classList.add('bi-arrow-down-short');
-        });
-  
-        myCollapsible.addEventListener('show.bs.collapse', function () {
-          var arrow = document.getElementById('arrow');
-          arrow.classList.remove('bi-arrow-down-short');
-          arrow.classList.add('bi-arrow-up-short');
-        });
-      </script>
-  
-      <script type="module">
-        // script to put product title on top of ar
-        document.getElementById("ar-title").textContent = document.querySelector(".product_title").textContent;
-        // script to load colors variants
-  
-        const modelViewer = document.querySelector("model-viewer#carpet");
-  
-        const createAndApplyTexture = async (textureSrc) => {
-          const channel = 'baseColorTexture';
-          const material = modelViewer.model.materials[0];
-          const texture = await modelViewer.createTexture(textureSrc);
-          if (channel.includes('base') || channel.includes('metallic')) {
-            material.pbrMetallicRoughness[channel].setTexture(texture);
-          } else {
-            material[channel].setTexture(texture);
-          }
-        };
-  
-        const createAndApplyTextureHelper = async (event) => {
-          createAndApplyTexture(event.target.value);
+        <div dir="ltr" class="container" style="margin-left: 50px;">
+          <div id="half-circle"
+            style="background-color: #6c757d88; width: 60px; height: 30px; border-bottom-left-radius: 34px; border-bottom-right-radius: 34px; border: 4px solid black; border-top: 0; position: absolute;"
+            class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
+            aria-controls="navbarToggleExternalContent" aria-expanded="true" aria-label="Toggle navigation">
+            <i id="arrow" style="color: black; font-size: 30px; margin-top: -3px; position: absolute;"
+              class="bi bi-arrow-up-short"></i>
+          </div>
+        </div>
+      </div>
+
+      <button id="ar-exit" slot="exit-webxr-ar-button" style="display: none;"><i class="bi bi-x-lg"></i></button>
+
+    </model-viewer>
+
+    <script type="module">
+
+      // script to toggle the collapsible
+
+      var myCollapsible = document.getElementById('navbarToggleExternalContent');
+
+      myCollapsible.addEventListener('hide.bs.collapse', function () {
+        var arrow = document.getElementById('arrow');
+        arrow.classList.remove('bi-arrow-up-short');
+        arrow.classList.add('bi-arrow-down-short');
+      });
+
+      myCollapsible.addEventListener('show.bs.collapse', function () {
+        var arrow = document.getElementById('arrow');
+        arrow.classList.remove('bi-arrow-down-short');
+        arrow.classList.add('bi-arrow-up-short');
+      });
+
+      // script to put product title on top of ar
+
+      document.getElementById("ar-title").textContent = document.querySelector(".product_title").textContent;
+
+      // script to load colors variants
+
+      const modelViewer = document.querySelector("model-viewer#carpet");
+
+      const createAndApplyTexture = async (textureSrc) => {
+        const channel = 'baseColorTexture';
+        const material = modelViewer.model.materials[0];
+        const texture = await modelViewer.createTexture(textureSrc);
+        if (channel.includes('base') || channel.includes('metallic')) {
+          material.pbrMetallicRoughness[channel].setTexture(texture);
+        } else {
+          material[channel].setTexture(texture);
         }
-  
-        document.querySelector('#diffuse').addEventListener('input', (event) => {
-          createAndApplyTextureHelper(event);
-        });
-  
-        modelViewer.addEventListener("load", () => {
-          document.querySelector('#diffuse').dispatchEvent(new Event('input'));
-        });
-  
-        // script to add color options
-  
-        var select = document.querySelector('#diffuse');
-  
-        for (const item of document.getElementsByClassName("product-image-wrap")) {
-          let opt = document.createElement('option');
-          opt.value = item.firstElementChild.firstElementChild.href;
-          opt.textContent += item.firstElementChild.firstElementChild.firstElementChild.alt;
-          if (opt.textContent.length) {
-            select.appendChild(opt);
+      };
+
+      const createAndApplyTextureHelper = async (event) => {
+        createAndApplyTexture(event.target.value);
+      }
+
+      document.getElementById('diffuse').addEventListener('input', (event) => {
+        createAndApplyTextureHelper(event);
+      });
+
+      modelViewer.addEventListener("load", () => {
+        document.getElementById('diffuse').dispatchEvent(new Event('input'));
+      });
+
+      // script to add color options
+
+      var select = document.getElementById('diffuse');
+
+      for (const imageItem of document.getElementsByClassName("product-image-wrap")) {
+        let imageHref = imageItem.firstElementChild.firstElementChild.href;
+        let colorName = imageItem.firstElementChild.firstElementChild.firstElementChild.alt;
+
+        let opt = document.createElement('option');
+        opt.value = imageHref;
+        opt.textContent += colorName;
+        if (opt.textContent.length) {
+          select.appendChild(opt);
+        }
+      }
+
+      var colors = document.getElementById('colors');
+
+      for (const item of document.querySelectorAll(".wd-swatch, .wd-bg, .wd-tooltip")) {
+        let button = document.createElement('button');
+        button.classList.add("btn", "btn-dark", "ms-1", "mb-1");
+
+        let i = document.createElement('i');
+        let span = document.createElement('span');
+        i.classList.add("bi", "bi-circle-fill", "h4");
+
+        span.textContent = " " + item.getAttribute("data-title");
+        i.style.color = item.firstElementChild.style.backgroundColor;
+
+        button.appendChild(i);
+        button.appendChild(span);
+
+        for (const imageItem of document.getElementsByClassName("product-image-wrap")) {
+          let imageHref = imageItem.firstElementChild.firstElementChild.href;
+          let colorName = imageItem.firstElementChild.firstElementChild.firstElementChild.alt;
+
+          let text1 = span.textContent.replace(/\s/g, "").replace("\u200C", "");
+          let text2 = colorName.replace(/\s/g, "").replace("\u200C", "");
+
+          if (text1 == text2) {
+            colors.appendChild(button);
+            button.onclick = function () {
+              createAndApplyTexture(imageHref);
+
+              let colorReport = document.getElementById("color-report");
+              colorReport.textContent = span.textContent;
+            };
+            break;
           }
         }
-  
-        var colors = document.getElementById('colors');
-  
-        for (const item of document.querySelectorAll(".wd-swatch, .wd-bg, .wd-tooltip")) {
-          let button = document.createElement('button');
-          button.classList.add("btn", "btn-dark", "ms-1", "mb-1");
-  
-          let i = document.createElement('i');
-          let span = document.createElement('span');
-          i.classList.add("bi", "bi-circle-fill", "h4");
-  
-          span.textContent = " " + item.getAttribute("data-title");
-          i.style.color = item.firstElementChild.style.backgroundColor;
-  
-          button.appendChild(i);
-          button.appendChild(span);
-  
-          for (const item of select.children) {
-            let text1 = span.textContent.replace(/\s/g, "").replace("\u200C", "");
-            let text2 = item.textContent.replace(/\s/g, "").replace("\u200C", "");
-  
-            if (text1 == text2) {
-              colors.appendChild(button);
-              button.onclick = function () {
-                createAndApplyTexture(item.value);
-  
-                let colorReport = document.getElementById("color-report");
-                colorReport.textContent = span.textContent;
-              };
-              break;
-            }
-          }
+      }
+
+      // script to load sizes
+
+      const switchSrc = (newSrc) => {
+        modelViewer.src = newSrc;
+      };
+
+      var sizeDict = {
+        "۶ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet-6m.glb",
+        "۹ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet-9m.glb",
+        "۱۲ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet-12m.glb"
+      };
+
+      var sizes = document.getElementById('sizes');
+
+      for (const size in sizeDict) {
+        let src = sizeDict[size];
+
+        let button = document.createElement('button');
+        button.classList.add("btn", "btn-dark", "ms-1", "mb-1");
+        button.textContent = size;
+        button.value = src;
+
+        button.onclick = function () {
+          switchSrc(button.value);
+
+          let sizeReport = document.getElementById("size-report");
+          sizeReport.textContent = button.textContent;
         }
-  
-        // script to load sizes
-  
-        const switchSrc = (newSrc) => {
-          modelViewer.src = newSrc;
-        };
-  
-        var sizeDict = {
-          "۶ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet-6m.glb",
-          "۹ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet-9m.glb",
-          "۱۲ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/models/carpet-12m.glb"
-        };
-  
-        var sizes = document.getElementById('sizes');
-  
-        for (const size in sizeDict) {
-          let src = sizeDict[size];
-  
-          let button = document.createElement('button');
-          button.classList.add("btn", "btn-dark", "ms-1", "mb-1");
-          button.textContent = size;
-          button.value = src;
-  
-          button.onclick = function () {
-            switchSrc(button.value);
-  
-            let sizeReport = document.getElementById("size-report");
-            sizeReport.textContent = button.textContent;
-          }
-  
-          sizes.appendChild(button);
-        }
-  
-        document.querySelector('#size').addEventListener('input', (event) => {
-          switchSrc(event.target.value);
-        });
-      </script>
-    </div>
+
+        sizes.appendChild(button);
+      }
+    </script>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </div>
+</div>

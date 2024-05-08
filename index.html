@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div class="wordpress" style="display: none;">
+  <div id="wordpress" style="display: none;">
     <div class="col-lg-9 order-lg-last">
       <h1 class="product_title entry-title wd-entities-title">
         فرش 1200 شانه طرح مدوسا
@@ -171,7 +171,7 @@
         overflow-x: hidden
       }
 
-      .only-ar,
+      /* .only-ar, */
       :not(:defined)>* {
         display: none
       }
@@ -228,7 +228,7 @@
       </script>
 
       <model-viewer id="carpet" camera-controls touch-action="pan-y"
-        src="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet.glb" ar ar-scale="fixed"
+        src="https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/plane-6m.glb" ar ar-scale="auto"
         ar-modes="webxr scene-viewer quick-look" camera-orbit="-22.5deg 60deg 70%" camera-target="0m -0.5m 0m"
         alt="A 3D model of a carpet">
 
@@ -335,6 +335,13 @@
           document.getElementById('diffuse').dispatchEvent(new Event('input'));
         });
 
+        // script to fix the roughness factor for carpet
+
+        modelViewer.addEventListener("load", () => {
+          var material = modelViewer.model.materials[0];
+          material.pbrMetallicRoughness.setRoughnessFactor(1);
+        });
+
         // script to add color options
 
         var select = document.getElementById('diffuse');
@@ -393,26 +400,26 @@
           modelViewer.src = newSrc;
         };
 
-        var sizeDict = {
-          "۶ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet-6m.glb",
-          "۹ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet-9m.glb",
-          "۱۲ متری": "https://raw.githubusercontent.com/mahdavifar2002/carpet/main/assets/glb/carpet-12m.glb"
+        const dimDict = {
+          "۶ متری": [3, 1, 2],
+          "۹ متری": [3.5, 1, 2.5],
+          "۱۲ متری": [4, 1, 3]
         };
+        const referenceDim = dimDict["۶ متری"];
 
         var sizes = document.getElementById('sizes');
+        let sizeReport = document.getElementById("size-report");
 
-        for (const size in sizeDict) {
-          let src = sizeDict[size];
+        for (const size in dimDict) {
+          let dim = dimDict[size];
 
           let button = document.createElement('button');
           button.classList.add("btn", "btn-dark", "ms-1", "mb-1");
           button.textContent = size;
-          button.value = src;
 
           button.onclick = function () {
-            switchSrc(button.value);
+            modelViewer.scale = dim[0] / referenceDim[0] + " " + dim[1] / referenceDim[1] + " " + dim[2] / referenceDim[2];
 
-            let sizeReport = document.getElementById("size-report");
             sizeReport.textContent = button.textContent;
           }
 
@@ -427,6 +434,59 @@
 
 
   <p><br><br><br><br></p>
+
+  <script>
+
+    // sandbox
+
+    // function watchVariable(obj, propName, callback) {
+    //   let value = obj[propName];
+
+    //   Object.defineProperty(obj, propName, {
+    //     get() {
+    //       return value;
+    //     },
+    //     set(newValue) {
+    //       if (newValue !== value) {
+    //         const oldValue = value;
+    //         value = newValue;
+    //         callback(newValue, oldValue);
+    //       }
+    //     },
+    //   });
+    // }
+
+    // watchVariable(modelViewer, "scale", (newValue, oldValue) => {
+    //   let newScale = newValue.split(" ").map((e) => parseFloat(e));
+    //   let newDim = [newScale[0] * referenceDim[0], newScale[1] * referenceDim[1], newScale[2] * referenceDim[2]];
+    //   sizeReport.textContent = faNumber(newDim[0]) + "×" + faNumber(newDim[2]);
+    // });
+
+
+
+    // const modelViewer = document.querySelector("model-viewer#carpet");
+
+
+    // const dimDict = {
+    //   "۶ متری": [3, 1, 2],
+    //   "۹ متری": [3.5, 1, 2.5],
+    //   "۱۲ متری": [4, 1, 3]
+    // };
+    // const referenceDim = dimDict["۶ متری"];
+
+    // let sizeReport = document.getElementById("size-report");
+
+
+
+    // function faNumber(number) {
+    //   return Intl.NumberFormat('fa').format(number);
+    // }
+    // var interval = setInterval(function () {
+    //   let newScale = modelViewer.scale.split(" ").map((e) => parseFloat(e));
+    //   let newDim = [newScale[0] * referenceDim[0], newScale[1] * referenceDim[1], newScale[2] * referenceDim[2]];
+    //   sizeReport.textContent = faNumber(newDim[0]) + " × " + faNumber(newDim[2]);
+    // }, 1000);
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/eruda@3.0.1/eruda.min.js"></script>
   <script>eruda.init();</script>

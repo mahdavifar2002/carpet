@@ -73,7 +73,7 @@ model-viewer {
 }
 
 .only-ar {
-	/* display: none; */
+	display: none;
 }
 
 model-viewer[ar-status="session-started"]>.only-ar {
